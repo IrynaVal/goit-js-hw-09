@@ -1,0 +1,2 @@
+console.log(1);const o=document.querySelector(".form");console.log(o),form.addEventListener("submit",n),form.addEventListener("input",callback);const e=new Promise(((o,e)=>{Math.random();setTimeout((()=>{}),1e3)}));function n(o,e){Math.random()}console.log(e),n().then((({position:o,delay:e})=>{console.log(`✅ Fulfilled promise ${o} in ${e}ms`)})).catch((({position:o,delay:e})=>{console.log(`❌ Rejected promise ${o} in ${e}ms`)}));
+//# sourceMappingURL=03-promises.62ebfcb2.js.map
