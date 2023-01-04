@@ -58,16 +58,20 @@ const timer = {
       const { days, hours, minutes, seconds } = convertMs(deltaTime);
       // console.log(`${days}:${hours}:${minutes}:${seconds}`);
 
-      timerDays.textContent = `${days}`;
-      timerHours.textContent = `${hours}`;
-      timerMinutes.textContent = `${minutes}`;
-      timerSeconds.textContent = `${seconds}`;
+      updateClockface(days, hours, minutes, seconds);
 
       if (deltaTime < 1000) {
         clearInterval(this.intervalId);
       }
     }, 1000);
   }
+}
+
+function updateClockface( days, hours, minutes, seconds ) {
+   timerDays.textContent = `${days}`;
+      timerHours.textContent = `${hours}`;
+      timerMinutes.textContent = `${minutes}`;
+      timerSeconds.textContent = `${seconds}`;
 }
 
 function onStartClick() {
