@@ -10,7 +10,7 @@ stopBtn.addEventListener('click', onStopClick);
 
 function onStartClick() {
     changeColor();
-    const timerId = setTimeout(changeColor, 0);
+    setTimeout(changeColor, 0);
     intervalId = setInterval(() => {
         changeColor();
     }, DELAY);

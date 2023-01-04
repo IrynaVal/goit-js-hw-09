@@ -1,40 +1,54 @@
-console.log(1);
+import Notiflix from 'notiflix';
 
-const formEl = document.querySelector('.form');
-console.log(formEl);
-form.addEventListener('submit', createPromise);
-form.addEventListener('input', callback);
+const form = document.querySelector('.form');
 
+form.addEventListener("submit", onFormSubmit);
 
+function onFormSubmit(evt) {
+  evt.preventDefault();
 
+  const delay = evt.target.elements.delay.value;
+  const step = evt.target.elements.step.value;
+  const amount = evt.target.elements.amount.value;
+  let position = 0;
+  let intervalId = null;
+  let delayStep = Number(delay);
+  
+  intervalId = setInterval(() => {
+  position += 1;
 
-const promise = new Promise((resolve, reject) => {
-  const shouldResolve = Math.random() > 0.3;
-  setTimeout(() => {
-     if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
-  }, 1000)
-});
-console.log(promise)
-
-function createPromise(position, delay) {
-  // preventDefault();
-
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
+    if (position >= 2) {
+      delayStep += Number(step);
+    }
+    
+    createPromise(position, delayStep)
+      .then(({ position, delay }) => {
+        Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        // console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        // console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+    
+    if (position >= amount) {
+        clearInterval(intervalId);
+      }
+  }, step);
 }
+ 
+function createPromise(position, delay) {
+   
+  return new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
+    setTimeout(() => {
+      
+      if (shouldResolve) {
+        resolve({ position, delay });
+      } else {
+        reject({ position, delay });
+      }   
 
-createPromise(2, 1500)
-  .then(({ position, delay }) => {
-    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+    }, delay);
   });
+ }
